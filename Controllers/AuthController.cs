@@ -13,6 +13,16 @@ namespace JWT_NET_PRAC.Controllers
     {
         public static User user = new User();
         
+        [HttpPost("register")]
+        public ActionResult<User> Register(UserDto request)
+        {
+            string passwordHash = BCrypt.Net.BCrypt.HashPassword(request.Password);
+
+            user.Username = request.Username;
+            user.PasswordHash = passwordHash;
+
+            return Ok(user);
+        }
 
     }
 }
